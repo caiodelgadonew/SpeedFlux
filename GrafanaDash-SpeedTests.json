@@ -1,76 +1,68 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_INFLUXDB-SPEEDTESTS",
-      "label": "InfluxDB-speedtests",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "7.3.6"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
-  "description": "A dashboard to display speedtest data over time.",
+  "description": "A dashboard to display speedtest data overtime. ",
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": 13053,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1611279295418,
+  "id": 1,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
+      "collapsed": false,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "C1fDMXPGz"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 108,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "SpeedTest",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "OPnJvKiVk"
+      },
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-blue",
-            "mode": "fixed"
-          },
-          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -94,13 +86,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 2,
-        "w": 3,
+        "h": 5,
+        "w": 6,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 116,
-      "interval": "5m",
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -113,22 +104,33 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
           "groupBy": [
             {
               "params": [
                 "$__interval"
               ],
               "type": "time"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
             }
           ],
           "measurement": "download",
           "orderByTime": "ASC",
-          "policy": "default",
+          "policy": "autogen",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -145,135 +147,87 @@
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
+          "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Avg Download Speed",
+      "timeFrom": "2d",
+      "title": "Download Speed",
       "type": "stat"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "description": "Uses https://github.com/breadlysm/speedtest-to-influxdb",
+      "datasource": {},
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "light-yellow",
+                "value": 700
+              },
+              {
+                "color": "green",
+                "value": 825
+              }
+            ]
+          },
+          "unit": "Mbits"
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 3,
       "gridPos": {
-        "h": 7,
-        "w": 18,
-        "x": 3,
-        "y": 0
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 1
       },
-      "hiddenSeries": false,
-      "id": 104,
+      "id": 118,
       "interval": "",
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "connected",
       "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.3.6",
-      "pointradius": 0.5,
-      "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Upload",
-          "color": "#A352CC"
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
         },
-        {
-          "alias": "Download",
-          "color": "#3274D9"
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.4.7",
       "targets": [
         {
-          "alias": "Download",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
           "groupBy": [
             {
               "params": [
                 "$__interval"
               ],
               "type": "time"
-            }
-          ],
-          "measurement": "download",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"bytes\") FROM \"download\" WHERE $timeFilter GROUP BY time($__interval) fill(0)",
-          "rawQuery": false,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "bandwidth"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        },
-        {
-          "alias": "Upload",
-          "groupBy": [
+            },
             {
               "params": [
-                "$__interval"
+                "linear"
               ],
-              "type": "time"
+              "type": "fill"
             }
           ],
           "measurement": "upload",
           "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"bytes\") FROM \"download\" WHERE $timeFilter GROUP BY time($__interval) fill(0)",
-          "rawQuery": false,
-          "refId": "B",
+          "policy": "autogen",
+          "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
@@ -289,65 +243,108 @@
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
+          "tags": []
         }
       ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Speedtest Results",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "Mbits",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "timeFrom": "2d",
+      "title": "Upload Speed",
+      "type": "stat"
     },
     {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
+      "datasource": {},
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-yellow",
-            "mode": "fixed"
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
           },
-          "custom": {},
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 1
+      },
+      "id": 120,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "ping",
+          "orderByTime": "ASC",
+          "policy": "autogen",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "latency"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": "2d",
+      "title": "Response Time",
+      "type": "stat"
+    },
+    {
+      "datasource": {},
+      "fieldConfig": {
+        "defaults": {
           "decimals": 2,
           "mappings": [],
           "thresholds": {
@@ -372,13 +369,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 21,
-        "y": 0
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 1
       },
       "id": 122,
-      "interval": "5m",
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -391,22 +387,33 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
           "groupBy": [
             {
               "params": [
                 "$__interval"
               ],
               "type": "time"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
             }
           ],
           "measurement": "download",
           "orderByTime": "ASC",
-          "policy": "default",
+          "policy": "autogen",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -423,122 +430,17 @@
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
+          "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Avg Test Time",
+      "timeFrom": "2d",
+      "title": "Test Time",
       "type": "stat"
     },
     {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
+      "datasource": {},
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-purple",
-            "mode": "fixed"
-          },
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "light-yellow",
-                "value": 700
-              },
-              {
-                "color": "green",
-                "value": 825
-              }
-            ]
-          },
-          "unit": "Mbits"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 3,
-        "x": 0,
-        "y": 2
-      },
-      "id": 118,
-      "interval": "5m",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.3.6",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            }
-          ],
-          "measurement": "upload",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "bandwidth"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Avg Upload Speed",
-      "type": "stat"
-    },
-    {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -554,13 +456,13 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 2,
-        "w": 3,
-        "x": 21,
-        "y": 3
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 6
       },
       "id": 124,
-      "interval": "5m",
+      "interval": "1h",
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -573,22 +475,33 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
           "groupBy": [
             {
               "params": [
                 "$__interval"
               ],
               "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
             }
           ],
           "measurement": "download",
           "orderByTime": "ASC",
-          "policy": "default",
+          "policy": "autogen",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -605,332 +518,42 @@
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
+          "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Total Test Downloaded",
+      "timeFrom": "2d",
+      "title": "Download Size Total",
       "type": "stat"
     },
     {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-yellow",
-            "mode": "fixed"
-          },
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 90
-              },
-              {
-                "color": "red",
-                "value": 150
-              }
-            ]
-          },
-          "unit": "ms"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 0,
-        "y": 4
-      },
-      "id": 120,
-      "interval": "5m",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.3.6",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            }
-          ],
-          "measurement": "ping",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "latency"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Avg Test Latency",
-      "type": "stat"
-    },
-    {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 3,
-        "x": 21,
-        "y": 5
-      },
-      "id": 125,
-      "interval": "5m",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.3.6",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            }
-          ],
-          "measurement": "upload",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "bytes"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Total Test Uploaded",
-      "type": "stat"
-    },
-    {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "dark-green",
-            "mode": "fixed"
-          },
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 0,
-        "y": 7
-      },
-      "id": 139,
-      "interval": "5s",
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.3.6",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$interval"
-              ],
-              "type": "time"
-            }
-          ],
-          "measurement": "pings",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "success"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ],
-          "tz": ""
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Uptime",
-      "type": "stat"
-    },
-    {
-      "aliasColors": {
-        "Latency": "semi-dark-yellow",
-        "Uptime": "dark-green",
-        "pings.min": "light-green",
-        "pings.sucess": "dark-green"
-      },
+      "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
+      "datasource": {
+        "type": "influxdb",
+        "uid": "OPnJvKiVk"
       },
+      "description": "Uses https://github.com/breadlysm/speedtest-to-influxdb",
       "fill": 1,
       "fillGradient": 3,
       "gridPos": {
-        "h": 6,
-        "w": 21,
-        "x": 3,
-        "y": 7
+        "h": 10,
+        "w": 18,
+        "x": 6,
+        "y": 6
       },
       "hiddenSeries": false,
-      "id": 138,
+      "id": 104,
       "interval": "",
       "legend": {
-        "alignAsTable": false,
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
         "max": true,
         "min": true,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
-        "sideWidth": 180,
         "total": false,
         "values": true
       },
@@ -941,22 +564,18 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "9.4.7",
       "pointradius": 0.5,
       "points": true,
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "pings.min",
-          "yaxis": 2
+          "alias": "Upload",
+          "color": "#F2CC0C"
         },
         {
-          "alias": "pings.sucess",
-          "yaxis": 2
-        },
-        {
-          "alias": "Uptime",
-          "yaxis": 2
+          "alias": "Download",
+          "color": "#3274D9"
         }
       ],
       "spaceLength": 10,
@@ -964,18 +583,71 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "Uptime",
+          "alias": "Download",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
           "groupBy": [
             {
               "params": [
-                "$interval"
+                "$__interval"
               ],
               "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
             }
           ],
-          "measurement": "pings",
+          "measurement": "download",
           "orderByTime": "ASC",
-          "policy": "default",
+          "policy": "autogen",
+          "query": "SELECT mean(\"bytes\") FROM \"download\" WHERE $timeFilter GROUP BY time($__interval) fill(0)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "bandwidth"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "Upload",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "upload",
+          "orderByTime": "ASC",
+          "policy": "autogen",
           "query": "SELECT mean(\"bytes\") FROM \"download\" WHERE $timeFilter GROUP BY time($__interval) fill(0)",
           "rawQuery": false,
           "refId": "B",
@@ -984,122 +656,22 @@
             [
               {
                 "params": [
-                  "success"
+                  "bandwidth"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "mean"
+                "type": "last"
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ],
-          "tz": ""
-        },
-        {
-          "alias": "Latency",
-          "groupBy": [
-            {
-              "params": [
-                "$interval"
-              ],
-              "type": "time"
-            }
-          ],
-          "measurement": "pings",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"rtt\") FROM \"pings\" WHERE (\"namespace\" =~ /^$namespace$/) AND success = 1 AND $timeFilter GROUP BY time($interval)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "rtt"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        },
-        {
-          "alias": "",
-          "groupBy": [
-            {
-              "params": [
-                "$interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "target"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": true,
-          "measurement": "pings",
-          "orderByTime": "ASC",
-          "policy": "autogen",
-          "query": "SELECT mean(\"rtt\") AS \"Latency\" FROM \"pings\" WHERE (\"namespace\" =~ /^$namespace$/) AND success = 1 AND $timeFilter GROUP BY time($interval), \"target\"",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "rtt"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "Latency"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
+          "tags": []
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
-      "title": "High Frequency Ping Results",
+      "title": "Speedtest Results",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1107,47 +679,30 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
-          "format": "ms",
-          "label": null,
-          "logBase": 2,
-          "max": "256",
-          "min": "4",
+          "format": "Mbits",
+          "logBase": 1,
           "show": true
         },
         {
-          "decimals": null,
-          "format": "percentunit",
-          "label": "",
+          "format": "short",
           "logBase": 1,
-          "max": "1",
-          "min": "0",
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "description": "",
+      "datasource": {},
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-yellow",
-            "mode": "fixed"
-          },
-          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -1155,29 +710,21 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 90
-              },
-              {
-                "color": "red",
-                "value": 150
               }
             ]
           },
-          "unit": "ms"
+          "unit": "decbytes"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
+        "h": 5,
+        "w": 6,
         "x": 0,
-        "y": 10
+        "y": 11
       },
-      "id": 140,
-      "interval": "5s",
+      "id": 125,
+      "interval": "1h",
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -1185,1108 +732,77 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "sum"
           ],
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
           "groupBy": [
             {
               "params": [
                 "$__interval"
               ],
               "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
             }
           ],
-          "measurement": "pings",
+          "measurement": "upload",
           "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"rtt\") FROM \"pings\" WHERE (\"namespace\" =~ /^$namespace$/) AND success = 1 AND $timeFilter GROUP BY time($__interval)",
-          "rawQuery": true,
+          "policy": "autogen",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
               {
                 "params": [
-                  "rtt"
+                  "bytes"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "mean"
+                "type": "last"
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
+          "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Avg Ping Latency",
+      "timeFrom": "2d",
+      "title": "Upload Size Total",
       "type": "stat"
     },
     {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 13
+      "datasource": {
+        "type": "influxdb",
+        "uid": "OPnJvKiVk"
       },
-      "id": 137,
-      "panels": [],
-      "title": "Leaders (Green) & Laggers (Yellow)",
-      "type": "row"
-    },
-    {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "center",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 175
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "SPEEDTEST.net URL"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 525
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Down Mbps"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-green",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.displayMode",
-                "value": "color-background"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 24,
-        "x": 0,
-        "y": 14
-      },
-      "id": 127,
-      "options": {
-        "frameIndex": 0,
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "7.3.6",
-      "targets": [
-        {
-          "groupBy": [],
-          "hide": false,
-          "measurement": "download",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT max(\"bandwidth\") AS \"Down Mbps\" FROM \"download\" WHERE (\"namespace\" =~ /^$namespace$/) AND $timeFilter",
-          "rawQuery": false,
-          "refId": "B",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "bandwidth"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              },
-              {
-                "params": [
-                  "Down Mbps"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        },
-        {
-          "groupBy": [
-            {
-              "params": [
-                "speedtest_url"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "upload",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "C",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "bandwidth"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Up Mbps"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        },
-        {
-          "groupBy": [
-            {
-              "params": [
-                "speedtest_url"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "ping",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "queryType": "randomWalk",
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "latency"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Latency ms"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "jitter"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Jitter ms"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": true,
-            "mode": "reduceFields",
-            "reducers": [
-              "firstNotNull"
-            ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": false
-            },
-            "indexByName": {
-              "Down Mbps": 2,
-              "Jitter ms": 5,
-              "Latency ms": 4,
-              "Time": 0,
-              "Up Mbps": 3,
-              "speedtest_url": 1
-            },
-            "renameByName": {
-              "Down Mbps": "",
-              "speedtest_url": "SPEEDTEST.net URL"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "center",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 175
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "SPEEDTEST.net URL"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 525
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Latency ms"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-green",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.displayMode",
-                "value": "color-background"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 24,
-        "x": 0,
-        "y": 17
-      },
-      "id": 134,
-      "options": {
-        "frameIndex": 0,
-        "showHeader": false,
-        "sortBy": []
-      },
-      "pluginVersion": "7.3.6",
-      "targets": [
-        {
-          "groupBy": [],
-          "hide": false,
-          "measurement": "ping",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "queryType": "randomWalk",
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "latency"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "min"
-              },
-              {
-                "params": [
-                  "Latency ms"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "jitter"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Jitter ms"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        },
-        {
-          "groupBy": [
-            {
-              "params": [
-                "speedtest_url"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "download",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT max(\"bandwidth\") AS \"Down Mbps\" FROM \"download\" WHERE (\"namespace\" =~ /^$namespace$/) AND $timeFilter",
-          "rawQuery": false,
-          "refId": "B",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "bandwidth"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Down Mbps"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        },
-        {
-          "groupBy": [
-            {
-              "params": [
-                "speedtest_url"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "upload",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "C",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "bandwidth"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Up Mbps"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": true,
-            "mode": "reduceFields",
-            "reducers": [
-              "firstNotNull"
-            ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": false
-            },
-            "indexByName": {
-              "Down Mbps": 2,
-              "Jitter ms": 5,
-              "Latency ms": 4,
-              "Time": 0,
-              "Up Mbps": 3,
-              "speedtest_url": 1
-            },
-            "renameByName": {
-              "Down Mbps": "",
-              "speedtest_url": "SPEEDTEST.net URL"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "center",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 175
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "SPEEDTEST.net URL"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 525
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Down Mbps"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-yellow",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.displayMode",
-                "value": "color-background"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 24,
-        "x": 0,
-        "y": 19
-      },
-      "id": 131,
-      "options": {
-        "frameIndex": 0,
-        "showHeader": false,
-        "sortBy": []
-      },
-      "pluginVersion": "7.3.6",
-      "targets": [
-        {
-          "groupBy": [],
-          "hide": false,
-          "measurement": "download",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT max(\"bandwidth\") AS \"Down Mbps\" FROM \"download\" WHERE (\"namespace\" =~ /^$namespace$/) AND $timeFilter",
-          "rawQuery": false,
-          "refId": "B",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "bandwidth"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "min"
-              },
-              {
-                "params": [
-                  "Down Mbps"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        },
-        {
-          "groupBy": [
-            {
-              "params": [
-                "speedtest_url"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "upload",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "C",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "bandwidth"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Up Mbps"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        },
-        {
-          "groupBy": [
-            {
-              "params": [
-                "speedtest_url"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "ping",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "queryType": "randomWalk",
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "latency"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Latency ms"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "jitter"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Jitter ms"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": true,
-            "mode": "reduceFields",
-            "reducers": [
-              "firstNotNull"
-            ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": false
-            },
-            "indexByName": {
-              "Down Mbps": 2,
-              "Jitter ms": 5,
-              "Latency ms": 4,
-              "Time": 0,
-              "Up Mbps": 3,
-              "speedtest_url": 1
-            },
-            "renameByName": {
-              "Down Mbps": "",
-              "speedtest_url": "SPEEDTEST.net URL"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "center",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 175
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "SPEEDTEST.net URL"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 525
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Latency ms"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-yellow",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.displayMode",
-                "value": "color-background"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 24,
-        "x": 0,
-        "y": 21
-      },
-      "id": 135,
-      "options": {
-        "frameIndex": 0,
-        "showHeader": false,
-        "sortBy": []
-      },
-      "pluginVersion": "7.3.6",
-      "targets": [
-        {
-          "groupBy": [],
-          "hide": false,
-          "measurement": "ping",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "queryType": "randomWalk",
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "latency"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              },
-              {
-                "params": [
-                  "Latency ms"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "jitter"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Jitter ms"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        },
-        {
-          "groupBy": [
-            {
-              "params": [
-                "speedtest_url"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "download",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT max(\"bandwidth\") AS \"Down Mbps\" FROM \"download\" WHERE (\"namespace\" =~ /^$namespace$/) AND $timeFilter",
-          "rawQuery": false,
-          "refId": "B",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "bandwidth"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Down Mbps"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        },
-        {
-          "groupBy": [
-            {
-              "params": [
-                "speedtest_url"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "upload",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "C",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "bandwidth"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Up Mbps"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": true,
-            "mode": "reduceFields",
-            "reducers": [
-              "firstNotNull"
-            ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": false
-            },
-            "indexByName": {
-              "Down Mbps": 2,
-              "Jitter ms": 5,
-              "Latency ms": 4,
-              "Time": 0,
-              "Up Mbps": 3,
-              "speedtest_url": 1
-            },
-            "renameByName": {
-              "Down Mbps": "",
-              "speedtest_url": "SPEEDTEST.net URL"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "collapsed": false,
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 23
-      },
-      "id": 108,
-      "panels": [],
-      "title": "Averages by Test Server",
-      "type": "row"
-    },
-    {
-      "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
       "description": "Shows the avg speeds received by test site",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "center",
-            "displayMode": "color-background",
-            "filterable": false
+            "align": "auto",
+            "cellOptions": {
+              "mode": "gradient",
+              "type": "color-background"
+            },
+            "filterable": false,
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -2314,7 +830,7 @@
               {
                 "id": "thresholds",
                 "value": {
-                  "mode": "percentage",
+                  "mode": "absolute",
                   "steps": [
                     {
                       "color": "green",
@@ -2322,25 +838,29 @@
                     },
                     {
                       "color": "#EAB839",
-                      "value": 25
+                      "value": 8
                     },
                     {
                       "color": "red",
-                      "value": 50
+                      "value": 25
                     }
                   ]
                 }
               },
               {
-                "id": "custom.displayMode",
-                "value": "gradient-gauge"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
               },
               {
                 "id": "max",
-                "value": 100
+                "value": 30
               },
               {
-                "id": "custom.width"
+                "id": "custom.width",
+                "value": 150
               }
             ]
           },
@@ -2355,8 +875,11 @@
                 "value": "none"
               },
               {
-                "id": "custom.displayMode",
-                "value": "gradient-gauge"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
               },
               {
                 "id": "max",
@@ -2364,7 +887,7 @@
               },
               {
                 "id": "custom.width",
-                "value": 150
+                "value": 120
               }
             ]
           },
@@ -2375,16 +898,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
-              },
-              {
-                "id": "custom.width",
-                "value": 180
-              },
-              {
-                "id": "custom.align",
-                "value": "left"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               }
             ]
           },
@@ -2395,8 +912,11 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "gradient-gauge"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
               },
               {
                 "id": "thresholds",
@@ -2409,17 +929,22 @@
                     },
                     {
                       "color": "yellow",
-                      "value": 50
+                      "value": 650
                     },
                     {
                       "color": "green",
-                      "value": 100
+                      "value": 800
                     }
                   ]
                 }
               },
               {
-                "id": "max"
+                "id": "min",
+                "value": 600
+              },
+              {
+                "id": "max",
+                "value": 950
               }
             ]
           },
@@ -2430,8 +955,19 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "gradient-gauge"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "min",
+                "value": 500
+              },
+              {
+                "id": "max",
+                "value": 950
               },
               {
                 "id": "thresholds",
@@ -2444,46 +980,39 @@
                     },
                     {
                       "color": "yellow",
-                      "value": 10
+                      "value": 650
                     },
                     {
                       "color": "green",
-                      "value": 50
+                      "value": 800
                     }
                   ]
                 }
               },
               {
-                "id": "max"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Server"
-            },
-            "properties": [
-              {
                 "id": "custom.width",
-                "value": 300
-              },
-              {
-                "id": "custom.align",
-                "value": "left"
+                "value": 171
               }
             ]
           }
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 8,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 16
       },
       "id": 114,
       "options": {
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": [
           {
@@ -2492,9 +1021,13 @@
           }
         ]
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
           "groupBy": [
             {
               "params": [
@@ -2517,7 +1050,7 @@
           ],
           "measurement": "download",
           "orderByTime": "ASC",
-          "policy": "default",
+          "policy": "autogen",
           "query": "SELECT mean(\"bandwidth\") AS \"Download Avg\" FROM \"download\" WHERE $timeFilter GROUP BY \"server_name\", \"server_location\"",
           "rawQuery": false,
           "refId": "A",
@@ -2560,15 +1093,13 @@
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
+          "tags": []
         },
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
           "groupBy": [
             {
               "params": [
@@ -2579,7 +1110,7 @@
           ],
           "measurement": "upload",
           "orderByTime": "ASC",
-          "policy": "default",
+          "policy": "autogen",
           "query": "SELECT mean(\"bandwidth\") AS \"Upload Avg\" FROM \"upload\" WHERE $timeFilter GROUP BY \"server_id\"",
           "rawQuery": false,
           "refId": "B",
@@ -2604,15 +1135,13 @@
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
+          "tags": []
         },
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "C1fDMXPGz"
+          },
           "groupBy": [
             {
               "params": [
@@ -2623,7 +1152,7 @@
           ],
           "measurement": "ping",
           "orderByTime": "ASC",
-          "policy": "default",
+          "policy": "autogen",
           "query": "SELECT mean(\"bandwidth\") AS \"Upload Avg\" FROM \"upload\" WHERE $timeFilter GROUP BY \"server_id\"",
           "rawQuery": false,
           "refId": "C",
@@ -2648,18 +1177,10 @@
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "namespace",
-              "operator": "=~",
-              "value": "/^$namespace$/"
-            }
-          ]
+          "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "",
+      "title": "Avg. Speed by test server",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -2672,20 +1193,12 @@
           "options": {
             "excludeByName": {
               "Time": true,
-              "Time 1": true,
-              "Time 2": true,
-              "Time 3": true,
               "server_id": true
             },
             "indexByName": {
               "Download Avg": 3,
-              "Ping": 2,
-              "Test Count": 7,
-              "Time 1": 6,
-              "Time 2": 8,
-              "Time 3": 9,
+              "Time": 2,
               "Upload Avg": 4,
-              "server_id": 5,
               "server_location": 1,
               "server_name": 0
             },
@@ -2698,287 +1211,18 @@
         }
       ],
       "type": "table"
-    },
-    {
-      "collapsed": true,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 36
-      },
-      "id": 129,
-      "panels": [
-        {
-          "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": "center",
-                "filterable": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Time"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 175
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "SPEEDTEST.net URL"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 525
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 37
-          },
-          "id": 130,
-          "options": {
-            "frameIndex": 0,
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "Down Mbps"
-              }
-            ]
-          },
-          "pluginVersion": "7.3.6",
-          "targets": [
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "speedtest_url"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "download",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT max(\"bandwidth\") AS \"Down Mbps\" FROM \"download\" WHERE (\"namespace\" =~ /^$namespace$/) AND $timeFilter",
-              "rawQuery": false,
-              "refId": "B",
-              "resultFormat": "table",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "bandwidth"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [
-                      "Down Mbps"
-                    ],
-                    "type": "alias"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "namespace",
-                  "operator": "=~",
-                  "value": "/^$namespace$/"
-                }
-              ]
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "speedtest_url"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "upload",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "C",
-              "resultFormat": "table",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "bandwidth"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [
-                      "Up Mbps"
-                    ],
-                    "type": "alias"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "namespace",
-                  "operator": "=~",
-                  "value": "/^$namespace$/"
-                }
-              ]
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "speedtest_url"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "ping",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "queryType": "randomWalk",
-              "refId": "A",
-              "resultFormat": "table",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "latency"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [
-                      "Latency ms"
-                    ],
-                    "type": "alias"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "jitter"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [
-                      "Jitter ms"
-                    ],
-                    "type": "alias"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "namespace",
-                  "operator": "=~",
-                  "value": "/^$namespace$/"
-                }
-              ]
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "All Raw",
-          "transformations": [
-            {
-              "id": "merge",
-              "options": {}
-            },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Time": false
-                },
-                "indexByName": {
-                  "Down Mbps": 2,
-                  "Jitter ms": 5,
-                  "Latency ms": 4,
-                  "Time": 0,
-                  "Up Mbps": 3,
-                  "speedtest_url": 1
-                },
-                "renameByName": {
-                  "Down Mbps": "",
-                  "speedtest_url": "SPEEDTEST.net URL"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        }
-      ],
-      "title": "Raw Results & Links",
-      "type": "row"
     }
   ],
-  "refresh": false,
-  "schemaVersion": 26,
+  "refresh": "5m",
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": [
-      {
-        "allValue": null,
-        "current": {},
-        "datasource": "${DS_INFLUXDB-SPEEDTESTS}",
-        "definition": "",
-        "error": null,
-        "hide": 1,
-        "includeAll": false,
-        "label": "namespace",
-        "multi": false,
-        "name": "namespace",
-        "options": [],
-        "query": "SHOW TAG VALUES FROM ping WITH Key = \"namespace\"",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      }
-    ]
+    "list": []
   },
   "time": {
-    "from": "now-2d",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -2996,7 +1240,8 @@
     ]
   },
   "timezone": "",
-  "title": "SpeedTests",
+  "title": "SpeedTest",
   "uid": "kLXTiedGz",
-  "version": 38
+  "version": 5,
+  "weekStart": ""
 }
